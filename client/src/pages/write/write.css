@@ -16,6 +16,22 @@
     display: flex;
     align-items: center;
 }
+.writeFormGroupCategory{
+    margin-left: 150px;
+    align-items: center;
+}
+.writeFormCategoryHeading{
+    font-size: 25px;
+    color:rgb(141, 146, 141);
+}
+.writeFormCategoryOptions{
+    font-size: 20px;
+    color:rgb(141, 146, 141);
+    margin-top: 20px;
+}
+.writeFormCategoryOptions input{
+    margin-left: 10px;
+}
 .writeIcon{
     width: 25px;
     height: 25px;
@@ -51,4 +67,17 @@
     border-radius: 10px;
     cursor:pointer;
     font-size: 16px;
+}
+.writeFormGroupDescription{
+    display: flex;
+    flex-direction: column;
+    margin-left: 150px;
+    margin-right: 150px;
+    padding-top: 30px;
+}
+.writeFormGroupEditor{
+    
+}
+.writeFromGroupPreview{
+
 }

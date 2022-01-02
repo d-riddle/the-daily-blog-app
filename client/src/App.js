@@ -8,6 +8,7 @@ import Write from "./pages/write/Write";
 import {BrowserRouter as Router, Routes , Route} from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "./context/Context";
+import Contact from "./pages/contact/Contact";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <TopBar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/contact" element={<Contact />}></Route>
         <Route path="/write" element={user ? <Write /> : <Register />}></Route>
         <Route path="/settings" element={user ? <Settings /> : <Register />}></Route>
         <Route path="/login" element={user ? <Home /> : <Login />}></Route>

@@ -54,7 +54,7 @@ function Settings(){
                     <label>Profile Picture</label>
                     <div className="settingsPP">
                         <img 
-                            src={file?URL.createObjectURL(file):PF+user.profilePicture}
+                            src={file?URL.createObjectURL(file):(user.profilePicture===""?PF+"no-profile-picture.jpg":PF+user.profilePicture)}
                             alt=""
                         />
                         <label htmlFor="fileInput">

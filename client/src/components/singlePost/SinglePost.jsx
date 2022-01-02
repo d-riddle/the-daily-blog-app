@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 import "./singlePost.css";
+import MDEditor from '@uiw/react-md-editor';
 
 function SinglePost(){
     const location=useLocation();
@@ -75,11 +76,39 @@ function SinglePost(){
                     <span className="singlePostDate">{new Date(post.createdAt).toDateString()}</span>
                 </div>
                 {updateMode?(
-                    <textarea className="singlePostDescriptionInput" value={description} onChange={(e)=>setDescription(e.target.value)} />
+                    <div className="singlePostDescription">
+                        <div className="singlePostEditor">
+                            <MDEditor
+                                value={description}
+                                autoFocus={false}
+                                onChange={setDescription}
+                                height={400}
+                                visiableDragbar={true}
+                                previewOptions={{ skipHtml: true, escapeHtml: true, transformLinkUri: null, linkTarget: '_blank' }}
+                            />
+                        </div>
+                        <div style={{ padding: "50px 0 0 0" }} />
+                        <div className="singlePostPreview">
+                            <MDEditor.Markdown
+                                source={description}
+                                skipHtml={true}
+                                linkTarget='_blank'
+                                transformLinkUri={null} />
+                        </div>
+                    </div>
+                    //<textarea className="singlePostDescriptionInput" value={description} onChange={(e)=>setDescription(e.target.value)} />
+
                 ):(
-                <p className="singlePostDescription">
-                    {post.description}
-                </p>
+                //<p className="singlePostDescription">
+                  //  {post.description}
+                //</p> 
+                <div className="singlePostPreviewUpdateOff">
+                    <MDEditor.Markdown
+                        source={description}
+                        skipHtml={true}
+                        linkTarget='_blank'
+                        transformLinkUri={null} />
+                </div>
                 )}
                 {updateMode&&(
                 <button className="singlePostButton" onClick={handleUpdate}>Update</button>

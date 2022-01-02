@@ -1,0 +1,64 @@
+.contact{
+    padding-top: 20px;
+    margin-left: 150px;
+    display: flex;
+    flex-direction: column;
+    width:50vw;
+}
+.heading{
+    color:rgb(141, 146, 141);
+}
+.formGroup{
+    display: flex;
+    flex-direction: column;
+}
+.formLabel{
+    margin-top: 20px;
+    font-size: 25px;
+    color:rgb(141, 146, 141);
+}
+.formName{
+    border: none;
+    font-size: 20px;
+    margin-top: 10px;
+}
+.formName:focus{
+    outline: none;
+}
+.formEmail{
+    border: none;
+    font-size: 20px;
+    margin-top: 10px;
+}
+.formEmail:focus{
+    outline: none;
+}
+.formMessage{
+    border: none;
+    font-size: 20px;
+    margin-top: 10px;
+    height: 250px;
+}
+.formMessage:focus{
+    outline: none;
+}
+.formSubmit{
+    position: absolute;
+    top:100px;
+    right:200px;
+    color: white;
+    background-color: teal;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor:pointer;
+    font-size: 16px;
+}
+.confirmer{
+    position: absolute;
+    top:150px;
+    right:125px;
+    color:lime;
+    padding: 10px;
+    font-size: 25px;
+}

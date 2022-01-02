@@ -12,16 +12,15 @@ function TopBar(){
     return(
         <div className="top">
             <div className="topLeft">
-                <i className="topIcon fab fa-facebook-square"></i>
-                <i className="topIcon fab fa-pinterest-square"></i>
-                <i className="topIcon fab fa-twitter-square"></i>
-                <i className="topIcon fab fa-instagram-square"></i>
+                <a href="https://www.facebook.com/" className="topIcon" target="_blank" rel='noreferrer noopener'><i className="fab fa-facebook-square"></i></a>
+                <a href="https://www.instagram.com/" className="topIcon" target="_blank" rel='noreferrer noopener'><i className="fab fa-pinterest-square"></i></a>
+                <a href="https://www.pinterest.com/" className="topIcon" target="_blank" rel='noreferrer noopener'><i className="fab fa-twitter-square"></i></a>
+                <a href="https://twitter.com/" className="topIcon" target="_blank" rel='noreferrer noopener'><i className="fab fa-instagram-square"></i></a>
             </div>
             <div className="topCenter">
                 <ul className="topList">
                     <li className="topListItem"><Link className="Link" to="/">HOME</Link></li>
-                    <li className="topListItem"><Link className="Link" to="/">ABOUT</Link></li>
-                    <li className="topListItem"><Link className="Link" to="/">CONTACT</Link></li>
+                    <li className="topListItem"><Link className="Link" to="/contact">CONTACT</Link></li>
                     <li className="topListItem"><Link className="Link" to="/write">WRITE</Link></li>
                     <li className="topListItem" onClick={handleLogout}>{user&&"LOGOUT"}</li>
                 </ul>
@@ -30,7 +29,7 @@ function TopBar(){
                 {
                     user?(
                         <Link className="Link" to="/settings">
-                       <img className="topImg" src={PF+user.profilePicture} alt="" />
+                       <img className="topImg" src={user.profilePicture===""?PF+"no-profile-picture.jpg":PF+user.profilePicture} alt="" />
                         </Link>
                     ):
                     (

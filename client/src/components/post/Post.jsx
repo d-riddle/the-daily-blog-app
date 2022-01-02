@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import './post.css'
+import MDEditor from '@uiw/react-md-editor';
 
 function Post({post}){
     const PF ="http://localhost:5000/images/";
@@ -21,7 +22,13 @@ function Post({post}){
                 <hr />
                 <span className="postDate">{new Date(post.createdAt).toDateString()}</span>
             </div>
-            <p className="postDescription">{post.description}</p>
+            <div className="postDescription">
+                <MDEditor.Markdown
+                    source={post.description}
+                    skipHtml={true}
+                    linkTarget='_blank'
+                    transformLinkUri={null} />
+            </div>
         </div>
     );
 }

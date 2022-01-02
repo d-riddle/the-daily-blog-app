@@ -25,7 +25,6 @@
     font-size: 28px;
     margin: 10px;
     border:none;
-    color:gray;
     border-bottom: 1px solid lightgray;
 }
 .singlePostTitleInput:focus{
@@ -54,23 +53,16 @@
     color:#b39656;
 }
 .singlePostDescription{
-    color: #666;
-    font-size:18px;
-    line-height: 25px;
+
 }
 .singlePostDescription::first-letter{
-    margin-left: 10px;
-    font-size: 30px;
-    font-weight: 600px;
+
 }
 .singlePostDescriptionInput{
-    color: #666;
-    font-size:18px;
-    line-height: 25px;
-    border:none;
+
 }
 .singlePostDescriptionInput:focus{
-    outline:none;
+
 }
 .singlePostButton{
     background-color: teal;
@@ -82,4 +74,10 @@
     cursor:pointer;
     padding:5px;
     color:white;
+}
+.singlePostDescription{
+    margin: 20px 20px 20px 20px;
+}
+.singlePostPreviewUpdateOff{
+    margin: 20px 20px 20px 20px;
 }

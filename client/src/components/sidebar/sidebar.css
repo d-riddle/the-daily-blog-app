@@ -21,8 +21,9 @@
 }
 .sidebarImg{
     margin-top: 15px;
-    height: 220px;
+    height: 200px;
     width: 200px;
+    border-radius: 50%;
 }
 .sidebarItem > p{
     padding: 30px;
@@ -36,6 +37,8 @@
     width: 50%;
     margin-top: 15px;
     cursor: pointer;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 17px;
 }
 .sidebarSocial{
     margin-top: 15px;

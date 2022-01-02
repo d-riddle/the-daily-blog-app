@@ -2,13 +2,25 @@ const express = require("express");
 const router = express.Router();
 const User=require("../models/User");
 const Post = require("../models/Post");
+const Category = require("../models/Category");
 
 
 //create post
 router.post("/", async (req, res) => {
     const newPost = new Post(req.body);
     try{
-        const savedPost=await newPost.save();
+        const savedPost = await newPost.save();
+        savedPost.categories.forEach(async(item)=>{
+            const categoryFound=await Category.findOne({name:item});
+            if(!categoryFound){
+                const newCategory = new Category({name:item});
+                try {
+                    const savedCategory = await newCategory.save();
+                } catch (err) {
+                    res.status(500).json(err);
+                }
+            }
+        });
         res.status(200).json(savedPost);
     } catch(err) {
         res.status(500).json(err);
