@@ -9,7 +9,8 @@ function Write(){
     const [categories,setCategories]=useState([]);
     const [description,setDescription]=useState("");
     const [file,setFile]=useState(null);
-    const {user}=useContext(Context);
+    const {user,dispatch}=useContext(Context);
+    const [errorMessage,setErrorMessage]=useState("");
     
     const handleAddCategories=(currCategory)=>{
         setCategories((prevCategories)=>
@@ -18,9 +19,11 @@ function Write(){
     };
 
     const handleSubmit=async (e)=>{
-        e.preventDefault();       
+        e.preventDefault();
+        setErrorMessage("");       
         const newPost={
             username:user.username,
+            userId:user._id,
             title,
             description,
             categories
@@ -38,10 +41,14 @@ function Write(){
             }
         }
         try{
-            const res=await axios.post("/posts",newPost);
+            const res=await axios.post("/posts",newPost,{headers:{token:"Bearer "+user?.accessToken}});
             window.location.replace("/post/"+res.data._id);
         } catch(err){
-
+            if(err.response.status===403||err.response.status===401){
+                dispatch({ type: "LOGOUT" });
+            } else {
+                setErrorMessage("Something Went Wrong!");
+            }
         }
     };
     return (
@@ -110,6 +117,7 @@ function Write(){
                     }
                 </div>
                 <button className="writeSubmit" type="submit">Publish</button>
+                {errorMessage && <span style={{ color: "red", textAlign: "center", marginTop: "20px" }}>{errorMessage}</span>}
             </form>
         </div>
     );

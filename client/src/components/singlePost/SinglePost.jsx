@@ -14,6 +14,7 @@ function SinglePost(){
     const [title,setTitle]=useState("");
     const [description,setDescription]=useState("");
     const [updateMode,setUpdateMode]=useState(false);
+    const [errorMessage,setErrorMessage]=useState("");
 
     useEffect(()=>{
         const getPost=async()=>{
@@ -23,26 +24,39 @@ function SinglePost(){
             setDescription(res.data.description);
         }
         getPost();
+        setErrorMessage("");
     },[path]);
-    const {user}=useContext(Context);
+    const {user,dispatch}=useContext(Context);
     const handleDelete= async()=>{
+        setErrorMessage("");
         try{
-            await axios.delete("/posts/"+path,{data:{username:user.username}});
+            await axios.delete("/posts/" + path,/*{data:{username:user.username}},*/{ headers: { "token": "Bearer " + user.accessToken } });
             window.location.replace("/");
         } catch(err){
-
+            if (err.response.status === 401 || (err.response.status === 403 && err.response.data ==="Token is not valid!")){
+                dispatch({type:"LOGOUT"});
+            } else {
+                setErrorMessage(err.response.data);
+            }
         }
     };
     const handleUpdate= async()=>{
+        setErrorMessage("");
         try{
             await axios.put("/posts/"+path,{
-                username:user.username,
+                // username:user.username,
+                // userId:user._id,
                 title:title,
                 description:description
-            });
+            }, { headers: { "token": "Bearer " + user.accessToken } });
             window.location.reload();
-        } catch(err){
-
+        }catch(err){
+            //console.log(err);
+            if (err.response.status === 401 || (err.response.status === 403 && err.response.data === "Token is not valid!")) {
+                dispatch({ type: "LOGOUT" });
+            } else {
+                setErrorMessage(err.response.data);
+            }
         }
     };    
     return (
@@ -113,6 +127,7 @@ function SinglePost(){
                 {updateMode&&(
                 <button className="singlePostButton" onClick={handleUpdate}>Update</button>
                 )}
+                {errorMessage && <span style={{ color: "red", textAlign: "center", marginTop: "20px" }}>{errorMessage}</span>}
             </div>
         </div>
     );

@@ -11,13 +11,16 @@ function Settings(){
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [success,setSuccess]=useState(false);
+    const [isDeleted,setIsDeleted]=useState(false);
     const PF="http://localhost:5000/images/";
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrorMessage("");
         dispatch({type:"UPDATE_START"});
         const updatedUser = {
-            userId: user._id,
+            //userId: user._id,
             username,
             email,
             password
@@ -35,20 +38,43 @@ function Settings(){
             }
         }
         try {
-            const res=await axios.put("/users/"+user._id, updatedUser);
+            //console.log(user);
+            const res = await axios.put("/users/" + user._id, updatedUser, { headers: { "token": "Bearer " + user.accessToken } });
             setSuccess(true);
             dispatch({ type: "UPDATE_SUCCESS", payload:res.data });
         } catch (err) {
+            if (err.response.status === 401 || (err.response.status === 403 && err.response.data === "Token is not valid!")) {
+                dispatch({ type: "LOGOUT" });
+            } else {
+                setErrorMessage(err.response.data);
+            }
             dispatch({ type: "UPDATE_FAILURE" });
         }
     };
+
+    const handleDelete=async(e)=>{
+        e.preventDefault();
+        setErrorMessage("");
+        try{
+            await axios.delete("/users/" + user._id, { headers: { "token": "Bearer " + user.accessToken } });
+            setIsDeleted(true);
+            dispatch({ type: "LOGOUT" });
+        }catch(err){
+            if (err.response.status === 401 || (err.response.status === 403 && err.response.data === "Token is not valid!")) {
+                dispatch({ type: "LOGOUT" });
+            } else {
+                setErrorMessage(err.response.data);
+            }
+        }
+    }
 
     return (
         <div className="settings">
             <div className="settingsWrapper">
                 <div className="settingsTitle">
                     <span className="settingsUpdateTitle">Update your Account</span>
-                    <span className="settingsDeleteTitle">Delete your Account</span>
+                    <span className="settingsDeleteTitle" onClick={handleDelete}>Delete your Account</span>
+                    {isDeleted && <span style={{ color: "green", textAlign: "center", marginTop: "20px" }}>Profile has been deleted...</span>}
                 </div>
                 <form className="settingsForm" onSubmit={handleSubmit}>
                     <label>Profile Picture</label>
@@ -70,6 +96,7 @@ function Settings(){
                     <input type="password" onChange={(e)=>setPassword(e.target.value)}/>
                     <button className="settingsSubmit" type="submit">Update</button>
                     {success&&<span style={{color:"green",textAlign:"center",marginTop:"20px"}}>Profile has been updated...</span>}
+                    {errorMessage && <span style={{ color: "red", textAlign: "center", marginTop: "20px" }}>{errorMessage}</span>}
                 </form>
             </div>
             <SideBar />
