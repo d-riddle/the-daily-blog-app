@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./register.css";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 
 function Register(){
     const [username,setUsername]=useState("");
@@ -13,7 +13,7 @@ function Register(){
         e.preventDefault();
         setErrorMessage("");
         try{
-            const res= await axios.post("/auth/register",{
+            const res= await axiosInstance.post("/auth/register",{
                 username,
                 email,
                 password

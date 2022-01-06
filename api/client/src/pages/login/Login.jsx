@@ -2,7 +2,7 @@ import "./login.css";
 import { Link } from "react-router-dom";
 import { useContext, useRef, useState } from "react";
 import { Context } from "../../context/Context";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 
 function Login(){
     const userRef=useRef();
@@ -20,7 +20,7 @@ function Login(){
         setOtherServerError(false);
         dispatch({type:"LOGIN_START"});
         try{
-            const res=await axios.post("/auth/login",{
+            const res=await axiosInstance.post("/auth/login",{
                 username:userRef.current.value,
                 password:passwordRef.current.value
             });

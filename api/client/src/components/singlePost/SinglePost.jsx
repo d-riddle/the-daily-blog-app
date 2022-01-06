@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
@@ -7,6 +6,7 @@ import "./singlePost.css";
 import MDEditor from '@uiw/react-md-editor';
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import app from "../../firebase/firebase";
+import { axiosInstance } from "../../config";
 
 function SinglePost(){
     const location=useLocation();
@@ -20,7 +20,7 @@ function SinglePost(){
 
     useEffect(()=>{
         const getPost=async()=>{
-            const res=await axios.get("/posts/"+path);
+            const res=await axiosInstance.get("/posts/"+path);
             setPost(res.data);
             setTitle(res.data.title);
             setDescription(res.data.description);
@@ -39,7 +39,7 @@ function SinglePost(){
 
         // Delete the file
         deleteObject(desertRef).then(() => {
-            axios.delete("/posts/" + path,/*{data:{username:user.username}},*/{ headers: { "token": "Bearer " + user.accessToken } }).then(()=>{
+            axiosInstance.delete("/posts/" + path,/*{data:{username:user.username}},*/{ headers: { "token": "Bearer " + user.accessToken } }).then(()=>{
                 window.location.replace("/");
             }).catch((err)=>{
                 if (err.response.status === 401 || (err.response.status === 403 && err.response.data === "Token is not valid!")) {
@@ -54,7 +54,7 @@ function SinglePost(){
         });
     }else{
         try{
-            await axios.delete("/posts/" + path,/*{data:{username:user.username}},*/{ headers: { "token": "Bearer " + user.accessToken } });
+            await axiosInstance.delete("/posts/" + path,/*{data:{username:user.username}},*/{ headers: { "token": "Bearer " + user.accessToken } });
             window.location.replace("/");
         } catch(err){
             if (err.response.status === 401 || (err.response.status === 403 && err.response.data ==="Token is not valid!")){
@@ -68,7 +68,7 @@ function SinglePost(){
     const handleUpdate= async()=>{
         setErrorMessage("");
         try{
-            await axios.put("/posts/"+path,{
+            await axiosInstance.put("/posts/"+path,{
                 // username:user.username,
                 // userId:user._id,
                 title:title,

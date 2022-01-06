@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import "./write.css";
-import axios from "axios";
 import {Context} from "../../context/Context"
 import MDEditor from '@uiw/react-md-editor';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import app from "../../firebase/firebase";
+import { axiosInstance } from "../../config";
 
 function Write(){
     const [title,setTitle] =useState("");
@@ -77,7 +77,7 @@ function Write(){
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=>{
                         newPost.photo = downloadURL;
                         console.log(downloadURL);
-                        axios.post("/posts", newPost, { headers: { token: "Bearer " + user?.accessToken } }).then((res)=>{
+                        axiosInstance.post("/posts", newPost, { headers: { token: "Bearer " + user?.accessToken } }).then((res)=>{
                             window.location.replace("/post/" + res.data._id);
                         }).catch((err)=>{
                             if (err.response.status === 403 || err.response.status === 401) {
@@ -91,7 +91,7 @@ function Write(){
                 });
         }else{
         try{
-            const res=await axios.post("/posts",newPost,{headers:{token:"Bearer "+user?.accessToken}});
+            const res=await axiosInstance.post("/posts",newPost,{headers:{token:"Bearer "+user?.accessToken}});
             window.location.replace("/post/"+res.data._id);
         } catch(err){
             if(err.response.status===403||err.response.status===401){

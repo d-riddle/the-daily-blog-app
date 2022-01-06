@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { axiosInstance } from '../../config';
 import './sidebar.css';
 
 function SideBar(){
@@ -8,7 +8,7 @@ function SideBar(){
     //const PF = "http://localhost:5000/images/";
     useEffect(()=>{
         const getCategories=async()=>{
-            const res=await axios.get("/categories");
+            const res=await axiosInstance.get("/categories");
             setCategories(res.data);
         }
         getCategories();

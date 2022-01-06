@@ -2,9 +2,9 @@ import "./settings.css";
 import SideBar from "../../components/sidebar/SideBar.jsx"
 import { useContext, useState } from "react";
 import { Context } from "../../context/Context";
-import axios from "axios";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 import app from "../../firebase/firebase";
+import { axiosInstance } from "../../config";
 
 function Settings(){
     const {user, dispatch}=useContext(Context);
@@ -73,7 +73,7 @@ function Settings(){
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                         updatedUser.profilePicture = downloadURL;
                         console.log(downloadURL);
-                        axios.put("/users/" + user._id, updatedUser, { headers: { "token": "Bearer " + user.accessToken } }).then((res) => {
+                        axiosInstance.put("/users/" + user._id, updatedUser, { headers: { "token": "Bearer " + user.accessToken } }).then((res) => {
                             setSuccess(true);
                             console.log(res.data);
                             dispatch({ type: "UPDATE_SUCCESS", payload: {...res.data,accessToken:user.accessToken }});
@@ -91,7 +91,7 @@ function Settings(){
         } else {
         try {
             //console.log(user);
-            const res = await axios.put("/users/" + user._id, updatedUser, { headers: { "token": "Bearer " + user.accessToken } });
+            const res = await axiosInstance.put("/users/" + user._id, updatedUser, { headers: { "token": "Bearer " + user.accessToken } });
             setSuccess(true);
             console.log(res.data);
             console.log(res.user);
@@ -118,7 +118,7 @@ function Settings(){
 
             // Delete the file
             deleteObject(desertRef).then(() => {
-                axios.delete("/users/" + user._id, { headers: { "token": "Bearer " + user.accessToken } }).then(() => {
+                axiosInstance.delete("/users/" + user._id, { headers: { "token": "Bearer " + user.accessToken } }).then(() => {
                     setIsDeleted(true);
                     dispatch({ type: "LOGOUT" });
                 }).catch((err) => {
@@ -134,7 +134,7 @@ function Settings(){
             });
         } else {
             try {
-                await axios.delete("/users/" + user._id, { headers: { "token": "Bearer " + user.accessToken } });
+                await axiosInstance.delete("/users/" + user._id, { headers: { "token": "Bearer " + user.accessToken } });
                 setIsDeleted(true);
                 dispatch({ type: "LOGOUT" });
             } catch (err) {
