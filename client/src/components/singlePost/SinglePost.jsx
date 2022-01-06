@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 import "./singlePost.css";
 import MDEditor from '@uiw/react-md-editor';
+import { getStorage, ref, deleteObject } from "firebase/storage";
+import app from "../../firebase/firebase";
 
 function SinglePost(){
     const location=useLocation();
     const path=location.pathname.split('/')[2];
     const [post,setPost]=useState({});
-    const PF = "http://localhost:5000/images/";
+    //const PF = "http://localhost:5000/images/";
     const [title,setTitle]=useState("");
     const [description,setDescription]=useState("");
     const [updateMode,setUpdateMode]=useState(false);
@@ -29,6 +31,28 @@ function SinglePost(){
     const {user,dispatch}=useContext(Context);
     const handleDelete= async()=>{
         setErrorMessage("");
+        if(post.photo){
+        const storage = getStorage(app);
+
+        // Create a reference to the file to delete
+        const desertRef = ref(storage,post.photo );
+
+        // Delete the file
+        deleteObject(desertRef).then(() => {
+            axios.delete("/posts/" + path,/*{data:{username:user.username}},*/{ headers: { "token": "Bearer " + user.accessToken } }).then(()=>{
+                window.location.replace("/");
+            }).catch((err)=>{
+                if (err.response.status === 401 || (err.response.status === 403 && err.response.data === "Token is not valid!")) {
+                    dispatch({ type: "LOGOUT" });
+                } else {
+                    setErrorMessage(err.response.data);
+                }
+            });
+        }).catch((error) => {
+            // Uh-oh, an error occurred!
+            setErrorMessage(error);
+        });
+    }else{
         try{
             await axios.delete("/posts/" + path,/*{data:{username:user.username}},*/{ headers: { "token": "Bearer " + user.accessToken } });
             window.location.replace("/");
@@ -39,6 +63,7 @@ function SinglePost(){
                 setErrorMessage(err.response.data);
             }
         }
+    }
     };
     const handleUpdate= async()=>{
         setErrorMessage("");
@@ -63,7 +88,7 @@ function SinglePost(){
         <div className="singlePost">
             <div className="singlePostWrapper">
             {post.photo && (
-                <img src={PF+post.photo}
+                <img src={post.photo}
                     alt=""
                     className="singlePostImg" />
             )}

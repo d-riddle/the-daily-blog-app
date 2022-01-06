@@ -68,6 +68,13 @@
     cursor:pointer;
     font-size: 16px;
 }
+.writeProgress{
+    position: absolute;
+    top:60px;
+    right:50px;
+    color: green;
+    font-size: 20px;
+}
 .writeFormGroupDescription{
     display: flex;
     flex-direction: column;
