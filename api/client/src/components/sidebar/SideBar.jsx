@@ -5,7 +5,6 @@ import './sidebar.css';
 
 function SideBar(){
     const [categories,setCategories]=useState([]);
-    //const PF = "http://localhost:5000/images/";
     useEffect(()=>{
         const getCategories=async()=>{
             const res=await axiosInstance.get("/categories");

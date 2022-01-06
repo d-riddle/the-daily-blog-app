@@ -164,8 +164,6 @@ function Write(){
                         linkTarget='_blank'
                         transformLinkUri={null} />
                     </div>
-                    {//<textarea className="writeInput writeText" placeholder="Spit your thoughts out..." onChange={(e)=>{setDescription(e.target.value)}}></textarea>
-                    }
                 </div>
                 <button className="writeSubmit" type="submit">Publish</button>
                 {progress && <span className="writeProgress">{progress}</span>}

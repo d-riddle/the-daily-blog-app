@@ -15,7 +15,7 @@ function Home(){
             setPosts(res.data);
         }
         fetchPosts();
-    }, [search]);  // we can pass an empty array ([]) as a second argument. This tells React that your effect doesn’t depend on any values from props or state, so it never needs to re-run.
+    }, [search]);
 
     return(
         <>

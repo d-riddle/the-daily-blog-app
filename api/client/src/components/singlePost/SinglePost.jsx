@@ -12,7 +12,6 @@ function SinglePost(){
     const location=useLocation();
     const path=location.pathname.split('/')[2];
     const [post,setPost]=useState({});
-    //const PF = "http://localhost:5000/images/";
     const [title,setTitle]=useState("");
     const [description,setDescription]=useState("");
     const [updateMode,setUpdateMode]=useState(false);
@@ -39,7 +38,7 @@ function SinglePost(){
 
         // Delete the file
         deleteObject(desertRef).then(() => {
-            axiosInstance.delete("/posts/" + path,/*{data:{username:user.username}},*/{ headers: { "token": "Bearer " + user.accessToken } }).then(()=>{
+            axiosInstance.delete("/posts/" + path,{ headers: { "token": "Bearer " + user.accessToken } }).then(()=>{
                 window.location.replace("/");
             }).catch((err)=>{
                 if (err.response.status === 401 || (err.response.status === 403 && err.response.data === "Token is not valid!")) {
@@ -54,7 +53,7 @@ function SinglePost(){
         });
     }else{
         try{
-            await axiosInstance.delete("/posts/" + path,/*{data:{username:user.username}},*/{ headers: { "token": "Bearer " + user.accessToken } });
+            await axiosInstance.delete("/posts/" + path,{ headers: { "token": "Bearer " + user.accessToken } });
             window.location.replace("/");
         } catch(err){
             if (err.response.status === 401 || (err.response.status === 403 && err.response.data ==="Token is not valid!")){
@@ -69,8 +68,6 @@ function SinglePost(){
         setErrorMessage("");
         try{
             await axiosInstance.put("/posts/"+path,{
-                // username:user.username,
-                // userId:user._id,
                 title:title,
                 description:description
             }, { headers: { "token": "Bearer " + user.accessToken } });
@@ -135,12 +132,8 @@ function SinglePost(){
                                 transformLinkUri={null} />
                         </div>
                     </div>
-                    //<textarea className="singlePostDescriptionInput" value={description} onChange={(e)=>setDescription(e.target.value)} />
 
                 ):(
-                //<p className="singlePostDescription">
-                  //  {post.description}
-                //</p> 
                 <div className="singlePostPreviewUpdateOff">
                     <MDEditor.Markdown
                         source={description}

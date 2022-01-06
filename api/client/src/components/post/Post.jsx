@@ -3,7 +3,6 @@ import './post.css'
 import MDEditor from '@uiw/react-md-editor';
 
 function Post({post}){
-    //const PF ="http://localhost:5000/images/";
     return (
         <div className="post">
             {post.photo && (

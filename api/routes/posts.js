@@ -41,7 +41,7 @@ router.put("/:id",verifyTokenAndAuthorizationForPosts,async(req,res)=>{
 //delete post
 router.delete("/:id",verifyTokenAndAuthorizationForPosts,async(req,res)=>{
     try {
-        await Post.findByIdAndDelete(req.params.id);  // we could also use findByIdAndDelete(req.params.id) but since we have already found the post in previous lines. so we can delete it directly.
+        await Post.findByIdAndDelete(req.params.id);
         res.status(200).json("Post has been deleted!");
     } catch (err) {
         res.status(500).json(err);

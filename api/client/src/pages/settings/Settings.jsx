@@ -14,7 +14,6 @@ function Settings(){
     const [password,setPassword]=useState("");
     const [success,setSuccess]=useState(false);
     const [isDeleted,setIsDeleted]=useState(false);
-    //const PF="http://localhost:5000/images/";
     const [errorMessage, setErrorMessage] = useState("");
     const [progress, setProgress] = useState("");
 
