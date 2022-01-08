@@ -17,7 +17,7 @@ function SideBar(){
             <div className="sidebarItem">
                 <span className="sidebarTitle">ABOUT ME</span>
                 <img className="sidebarImg" src="https://firebasestorage.googleapis.com/v0/b/the-daily-blog-app.appspot.com/o/aboutme-sidebar-picture.jpg?alt=media&token=879c2b8b-544a-415f-966e-0e35d85c0d96" alt="" />
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>My name is Ankit Sahoo. I am currently pursuing my final year of Btech in NIT Rourkela. I like solving problem and can be seen giving contest in codeforces. I like doing backend development and trying to become good at it.</p>
             </div>
             <div class="sidebarItem">
                 <span className="sidebarTitle">CATEGORIES</span>
