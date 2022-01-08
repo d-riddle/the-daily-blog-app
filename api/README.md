@@ -1,6 +1,6 @@
 # The Daily Blog App
 
-This web App is deployed on heroku. The Link to the App is [The-Daily-Blog-App](https://the-daily-blog-app.herokuapp.com/).
+This web App is deployed on heroku. The Link to the web App is [The-Daily-Blog-App](https://the-daily-blog-app.herokuapp.com/).
 
 
 As the name suggests this project allows to create and display modern and stylish blog articles and perform CRUD operations on it with JWT authentication.
