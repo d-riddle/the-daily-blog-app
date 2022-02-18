@@ -94,7 +94,7 @@ function SinglePost(){
             ) : (
                 <h1 className="singlePostTitle">
                     {post.title}
-                    {post.username===user?.username&&(
+                    {(post.username===user?.username||user?.isAdmin)&&(
                     <div className="singlePostEdit">
                         <i class="singlePostIcon far fa-edit" onClick={()=>setUpdateMode(true)}></i>
                         <i class="singlePostIcon far fa-trash-alt" onClick={handleDelete}></i>
