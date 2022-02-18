@@ -1,4 +1,5 @@
 const express=require("express");
+const cors=require("cors");
 const app=express();
 
 const dotenv=require("dotenv");
@@ -11,6 +12,7 @@ const path=require("path");
 
 dotenv.config();
 app.use(express.json());
+app.use(cors());
 
 mongoose.connect(process.env.MONGO_URL,{
     useNewURLParser: true,

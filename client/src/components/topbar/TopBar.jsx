@@ -37,7 +37,6 @@ function TopBar(){
                             <li className="topListItem"><Link className="Link" to="/register">REGISTER</Link></li>
                         </ul>
                     )}
-                <i class="topSearchIcon fas fa-search"></i>
             </div>
         </div>
     );
